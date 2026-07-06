@@ -1,0 +1,14 @@
+langchain
+langchain-chroma
+langchain-community
+langchain-huggingface
+langchain-experimental
+langgraph
+chromadb
+sentence-transformers
+pymupdf
+networkx
+pydantic
+python-dotenv
+openai
+ollama
