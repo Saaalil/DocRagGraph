@@ -8,9 +8,6 @@ export default defineConfig({
 			customCss: [
 				'./src/custom.css',
 			],
-			social: {
-				github: 'https://github.com/Saaalil/DocRagGraph',
-			},
 			sidebar: [
 				{
 					label: 'Guides',
