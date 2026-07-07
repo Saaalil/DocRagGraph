@@ -1,0 +1,36 @@
+---
+title: Welcome to DocRagGraph
+description: Advanced Agentic Hybrid GraphRAG System
+template: splash
+hero:
+  tagline: A fully autonomous Hybrid GraphRAG system using ChromaDB, NetworkX, and Qwen embeddings. Multi-hop reasoning on your local machine.
+  image:
+    file: ../../assets/houston.webp
+  actions:
+    - text: How it Works
+      link: /guides/architecture/
+      icon: right-arrow
+    - text: View on GitHub
+      link: https://github.com/Saaalil/DocRagGraph
+      icon: external
+      variant: minimal
+---
+
+import { Card, CardGrid } from '@astrojs/starlight/components';
+
+## Features
+
+<CardGrid stagger>
+	<Card title="Agentic Retrieval Loop" icon="rocket">
+		Powered by LangGraph ReAct agents. It loops and self-reflects until it finds the perfect answer.
+	</Card>
+	<Card title="Vector Search" icon="magnifier">
+		Local semantic search using `Alibaba-NLP/gte-Qwen2-1.5B-instruct` and ChromaDB.
+	</Card>
+	<Card title="Knowledge Graphs" icon="node">
+		Multi-hop relationship reasoning using NetworkX, perfectly handling complex queries.
+	</Card>
+	<Card title="Fully Local & Free" icon="laptop">
+		Designed to run on CPU with 32GB RAM without needing a GPU.
+	</Card>
+</CardGrid>

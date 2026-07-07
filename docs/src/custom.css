@@ -1,0 +1,17 @@
+:root {
+  /* Vue.js Green */
+  --sl-hue-accent: 153;
+  --sl-color-accent-high: #33a06f;
+  --sl-color-accent: #42b883;
+  --sl-color-accent-low: #1a4d36;
+  
+  /* Dark mode backgrounds similar to Vue docs */
+  --sl-color-bg-nav: #1a1a1a;
+  --sl-color-bg: #1a1a1a;
+}
+
+[data-theme='light'] {
+  --sl-color-bg-nav: #ffffff;
+  --sl-color-bg: #ffffff;
+  --sl-color-accent-low: #d4f3e6;
+}
