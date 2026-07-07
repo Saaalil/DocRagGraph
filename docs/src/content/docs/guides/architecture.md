@@ -20,23 +20,29 @@ When you type a question, it is handed off to a **LangGraph ReAct Agent**. "ReAc
 
 Instead of a standard script that just pulls data and spits out an answer, the Agent has free will. It operates in a continuous loop:
 
-```mermaid
+<div class="mermaid">
 graph TD
-    A[👤 User Question] --> B{🤖 LangGraph Agent}
+    A[👤 Complex User Query] --> B{🤖 LangGraph Agent}
     
-    B -->|Requires exact text or definitions| C[(Vector DB)]
-    B -->|Requires mapping complex relationships| D[(Knowledge Graph)]
+    B -->|Requires Semantic Context| C[(Chroma Vector DB)]
+    B -->|Requires Deep Relationships| D[(NetworkX Graph DB)]
     
-    C -.->|Returns Paragraphs| E[🧠 Self-Reflection]
-    D -.->|Returns Connected Paths| E
+    C -.->|Returns Text Chunks| E[🧠 Self-Reflection]
+    D -.->|Returns Multi-Hop Paths| E
     
     E -->|Information Missing| B
-    E -->|Confident in Answer| F[✅ Final Synthesized Answer]
+    E -->|Confident in Answer| F[✅ Highly Accurate Output]
     
     style B fill:#d29d72,stroke:#110f0e,stroke-width:2px,color:#110f0e
     style F fill:#f0c39f,stroke:#110f0e,stroke-width:2px,color:#110f0e
     style E fill:#3a2b20,stroke:#110f0e,stroke-width:2px,color:#e8e3d9
-```
+</div>
+
+<script type="module">
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+  mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+  mermaid.init(undefined, document.querySelectorAll('.mermaid'));
+</script>
 
 ### 1. The Decision
 The Agent asks itself: *"Does this question require me to find a specific fact, or do I need to connect the dots across multiple entities?"* It then triggers the appropriate database.
