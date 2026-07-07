@@ -22,16 +22,16 @@ Instead of a standard script that just pulls data and spits out an answer, the A
 
 <div class="mermaid">
 graph TD
-    A["👤 Complex User Query"] --> B("🤖 LangGraph Agent")
+    A[Complex User Query] --> B(LangGraph Agent)
     
-    B -->|"Requires Semantic Context"| C[("Chroma Vector DB")]
-    B -->|"Requires Deep Relationships"| D[("NetworkX Graph DB")]
+    B -->|Requires Semantic Context| C[(Chroma Vector DB)]
+    B -->|Requires Deep Relationships| D[(NetworkX Graph DB)]
     
-    C -.->|"Returns Text Chunks"| E["🧠 Self-Reflection"]
-    D -.->|"Returns Multi-Hop Paths"| E
+    C -.->|Returns Text Chunks| E[Self-Reflection]
+    D -.->|Returns Multi-Hop Paths| E
     
-    E -->|"Information Missing"| B
-    E -->|"Confident in Answer"| F["✅ Highly Accurate Output"]
+    E -->|Information Missing| B
+    E -->|Confident in Answer| F[Highly Accurate Output]
     
     style B fill:#d29d72,stroke:#110f0e,stroke-width:2px,color:#110f0e
     style F fill:#f0c39f,stroke:#110f0e,stroke-width:2px,color:#110f0e
