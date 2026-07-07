@@ -22,7 +22,7 @@ Instead of a standard script that just pulls data and spits out an answer, the A
 
 <div class="mermaid">
 graph TD
-    A["👤 Complex User Query"] --> B{"🤖 LangGraph Agent"}
+    A["👤 Complex User Query"] --> B("🤖 LangGraph Agent")
     
     B -->|"Requires Semantic Context"| C[("Chroma Vector DB")]
     B -->|"Requires Deep Relationships"| D[("NetworkX Graph DB")]
