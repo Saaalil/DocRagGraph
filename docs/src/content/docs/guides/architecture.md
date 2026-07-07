@@ -1,59 +1,53 @@
 ---
-title: System Architecture & Value Proposition
-description: Learn why DocRagGraph outperforms traditional RAG systems.
+title: System Architecture & Workflow
+description: A deep dive into how the Hybrid GraphRAG system operates behind the scenes.
 ---
 
-The **DocRagGraph** system represents a massive leap in generative AI capabilities. By fusing **Vector Search** with a **Knowledge Graph**, it solves the most fundamental limitations of standard AI document query systems.
+This page explains exactly how **DocRagGraph** processes your documents and answers your questions. We've designed this breakdown so that anyone—from a software engineer to a business executive—can understand the massive value of the system.
 
-## The Problem with Traditional RAG
+## The Ingestion Phase: Reading the Document
 
-Traditional Retrieval-Augmented Generation (RAG) relies entirely on semantic vector search. When you ask a question, it finds paragraphs that have similar wording or meaning.
+Before you can ask a question, the system must "read" your PDF. But it doesn't just scan the text; it builds a dual-layer brain.
 
-**Where it fails:**
-- **Multi-Hop Reasoning:** If you ask, "How is the CEO of Company A related to the new product launch?", standard RAG will find a chunk mentioning the CEO, and a chunk mentioning the product, but it often fails to connect the dots if they aren't explicitly linked in the same sentence.
-- **Global Context:** Standard RAG cannot summarize the overarching theme of a massive document because it only retrieves fragmented chunks.
-- **Hallucinations:** Without hard-linked facts, the LLM is forced to guess connections between retrieved chunks, leading to inaccuracies.
+1. **Chunking (The Librarian):** The document is sliced into small paragraphs. A local AI model (`Alibaba-NLP/gte-Qwen2-1.5B-instruct`) converts these paragraphs into numbers (vectors) and stores them in **ChromaDB**. This allows the system to instantly find paragraphs that mean the same thing as your question.
+2. **Graph Extraction (The Detective):** A powerful Language Model slowly reads every single page. Every time it spots an Entity (a person, a company, a law), it draws a node. Every time it spots a connection (Company A *owns* Company B), it draws a line. This web of connections is saved in **NetworkX**.
 
-## Why GraphRAG is the Superior Approach
+---
 
-**DocRagGraph** solves these issues by extracting an explicit Knowledge Graph during the ingestion phase. It maps out **Entities** (people, places, concepts) and the exact **Relationships** between them.
+## The Query Phase: The Autonomous Agent
 
-When a query is made, our LangGraph-powered **Agentic Loop** springs into action:
-1. **Decision Making**: The AI agent analyzes your question and decides if it needs a semantic chunk, a relationship trace, or both.
-2. **Graph Traversal**: It walks the nodes of the graph (e.g., *CEO* ➔ *leads* ➔ *Project X* ➔ *relies on* ➔ *Product Y*) to find verified connections.
-3. **Self-Reflection**: It evaluates the context it found. If the answer is incomplete, it automatically loops back and searches deeper into the graph before returning a final answer.
+When you type a question, it is handed off to a **LangGraph ReAct Agent**. "ReAct" stands for Reasoning and Acting. 
+
+Instead of a standard script that just pulls data and spits out an answer, the Agent has free will. It operates in a continuous loop:
 
 ```mermaid
 graph TD
-    A[👤 Complex User Query] --> B{🤖 LangGraph Agent}
+    A[👤 User Question] --> B{🤖 LangGraph Agent}
     
-    B -->|Requires Semantic Context| C[(Chroma Vector DB)]
-    B -->|Requires Deep Relationships| D[(NetworkX Graph DB)]
+    B -->|Requires exact text or definitions| C[(Vector DB)]
+    B -->|Requires mapping complex relationships| D[(Knowledge Graph)]
     
-    C -.->|Returns Text Chunks| E[🧠 Self-Reflection]
-    D -.->|Returns Multi-Hop Paths| E
+    C -.->|Returns Paragraphs| E[🧠 Self-Reflection]
+    D -.->|Returns Connected Paths| E
     
     E -->|Information Missing| B
-    E -->|Confident in Answer| F[✅ Highly Accurate Output]
+    E -->|Confident in Answer| F[✅ Final Synthesized Answer]
     
-    style B fill:#42b883,stroke:#333,stroke-width:2px,color:#fff
-    style F fill:#33a06f,stroke:#333,stroke-width:2px,color:#fff
-    style E fill:#1a4d36,stroke:#333,stroke-width:2px,color:#fff
+    style B fill:#d29d72,stroke:#110f0e,stroke-width:2px,color:#110f0e
+    style F fill:#f0c39f,stroke:#110f0e,stroke-width:2px,color:#110f0e
+    style E fill:#3a2b20,stroke:#110f0e,stroke-width:2px,color:#e8e3d9
 ```
 
----
+### 1. The Decision
+The Agent asks itself: *"Does this question require me to find a specific fact, or do I need to connect the dots across multiple entities?"* It then triggers the appropriate database.
 
-## Customer Selling Points & End-Product Use Cases
+### 2. The Retrieval
+If it needs the Graph, it starts at one node (e.g., "The Supplier") and walks along the connected lines to find out what the supplier is responsible for, who they report to, and what happens if they fail. 
 
-For enterprise clients and end-users, this isn't just a chatbot; it's a **Cognitive Knowledge Engine**.
+### 3. The Reflection Loop
+This is where the magic happens. The Agent reads the data it just retrieved. If it realizes, *"Wait, I found out who the supplier is, but I still don't know the late fee penalty"*, it will **automatically loop back** and query the Vector Database for the penalty clause. 
 
-### 1. Enterprise Contract & Legal Analysis
-Lawyers deal with contracts referencing dozens of subsidiaries, clauses, and external entities. Traditional RAG struggles to map these complex webs. **End Product:** An AI Legal Assistant that can instantly answer, "Which subsidiaries are affected if Clause 4 is breached?" by traversing the graph.
+It only stops and presents the final answer to you when it is 100% confident it has gathered all the pieces of the puzzle. 
 
-### 2. Medical & Research Literature Review
-Researchers need to connect symptoms, proteins, and drug trials across hundreds of papers. **End Product:** A biomedical discovery tool that finds non-obvious relationships (e.g., tracing how a side-effect in one study links to a mechanism in another).
-
-### 3. Financial Due Diligence
-Analysts can ingest financial reports to map out corporate structures and dependencies. **End Product:** A risk-assessment dashboard that autonomously flags if a parent company's supply chain is fundamentally tied to a struggling vendor.
-
-**The Ultimate Value:** It provides the speed of search with the analytical depth of a human researcher, dramatically reducing hallucinations and unlocking insights that are mathematically impossible for traditional vector databases to find alone.
+## The Result
+You get an answer that is highly accurate, contextually aware, and deeply reasoned—something that traditional RAG systems simply cannot achieve.

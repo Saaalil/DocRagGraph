@@ -1,36 +1,66 @@
 ---
-title: Welcome to DocRagGraph
-description: Advanced Agentic Hybrid GraphRAG System
+title: DocRagGraph Platform
+description: Build on the DocRagGraph Platform
 template: splash
 hero:
-  tagline: A fully autonomous Hybrid GraphRAG system using ChromaDB, NetworkX, and Qwen embeddings. Multi-hop reasoning on your local machine.
-  image:
-    file: ../../assets/houston.webp
+  tagline: Use our autonomous, multi-agent hybrid retrieval system to unlock the true meaning of your documents. Experience the most advanced AI document intelligence on the market.
   actions:
-    - text: How it Works
+    - text: Start exploring
       link: /guides/architecture/
       icon: right-arrow
-    - text: View on GitHub
+      variant: primary
+    - text: View developer docs
       link: https://github.com/Saaalil/DocRagGraph
       icon: external
-      variant: minimal
+      variant: secondary
 ---
 
 import { Card, CardGrid } from '@astrojs/starlight/components';
 
-## Features
+## The Core Problem with Standard AI Chatbots
+
+Imagine handing a 500-page legal contract to a detective and asking, *"How is the CEO connected to the breach of Clause 4?"* 
+
+A human detective would read the contract, draw a mind-map linking the CEO to a subsidiary, linking the subsidiary to a vendor, and linking the vendor to Clause 4. 
+
+Standard AI systems (known as **Retrieval-Augmented Generation** or **RAG**) do **not** do this. Standard RAG uses a "keyword matching" approach called Vector Search. It flips through the 500 pages, finds a paragraph that mentions "CEO", finds another paragraph that mentions "Clause 4", hands you both paragraphs, and hopes the AI can guess the connection. 
+
+When the connections are complex, standard RAG fails. It misses the big picture, loses context, and worst of all, it hallucinates facts to fill in the blanks.
+
+---
+
+## The Solution: Cognitive Knowledge Engines
+
+**DocRagGraph** completely reinvents how AI reads your documents by combining two incredibly powerful technologies:
+
+1. **The Vector Database:** The traditional filing cabinet. It instantly finds exact quotes, definitions, and paragraphs.
+2. **The Knowledge Graph:** The detective's mind-map. As the AI reads your document, it actively draws connections between people, places, concepts, and rules. 
+
+### How it Works (Without the Jargon)
+
+When you ask DocRagGraph a question, you aren't just querying a database. You are giving a task to an **Autonomous AI Agent**.
+
+1. **Thinking:** The Agent looks at your question and decides its strategy. 
+2. **Investigation:** If you ask a direct question (e.g., *"What is the fine for late payment?"*), it looks in the Vector Database. If you ask a complex question (e.g., *"Who is responsible if the supplier delays shipment?"*), it traces the literal connections in the Knowledge Graph.
+3. **Self-Reflection:** Before answering, the Agent double-checks its findings. If the answer feels incomplete, it silently reformulates its search and tries again—looping until it has a mathematically verified, perfectly reasoned answer.
+
+---
+
+## Why This Matters (End-Product Value)
+
+For end-users, this isn't just a chatbot interface—it's a tireless, genius-level research assistant.
 
 <CardGrid stagger>
-	<Card title="Agentic Retrieval Loop" icon="rocket">
-		Powered by LangGraph ReAct agents. It loops and self-reflects until it finds the perfect answer.
+	<Card title="Legal & Compliance" icon="document">
+		Instantly trace liability across nested corporate subsidiaries and interdependent contract clauses without missing a single link.
 	</Card>
-	<Card title="Vector Search" icon="magnifier">
-		Local semantic search using `Alibaba-NLP/gte-Qwen2-1.5B-instruct` and ChromaDB.
+	<Card title="Medical Research" icon="magnifier">
+		Connect side-effects in one medical study to biological mechanisms in another, mapping out cures that a simple keyword search would never find.
 	</Card>
-	<Card title="Knowledge Graphs" icon="node">
-		Multi-hop relationship reasoning using NetworkX, perfectly handling complex queries.
+	<Card title="Financial Due Diligence" icon="setting">
+		Uncover hidden risks by mapping the entire supply chain and corporate structure of a target acquisition from their annual reports.
 	</Card>
-	<Card title="Fully Local & Free" icon="laptop">
-		Designed to run on CPU with 32GB RAM without needing a GPU.
+	<Card title="Total Privacy" icon="laptop">
+		The entire system is designed to run locally on your own machine. Your sensitive documents never touch a public cloud.
 	</Card>
 </CardGrid>

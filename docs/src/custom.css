@@ -1,17 +1,62 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@400;500;600&display=swap');
+
 :root {
-  /* Vue.js Green */
-  --sl-hue-accent: 153;
-  --sl-color-accent-high: #33a06f;
-  --sl-color-accent: #42b883;
-  --sl-color-accent-low: #1a4d36;
+  --sl-font: 'Inter', sans-serif;
   
-  /* Dark mode backgrounds similar to Vue docs */
-  --sl-color-bg-nav: #1a1a1a;
-  --sl-color-bg: #1a1a1a;
+  /* Accent colors - warm terracotta/clay to match the reference */
+  --sl-hue-accent: 25;
+  --sl-color-accent-high: #f0c39f;
+  --sl-color-accent: #d29d72;
+  --sl-color-accent-low: #3a2b20;
+  
+  /* Deep warm dark backgrounds */
+  --sl-color-black: #110f0e;
+  --sl-color-bg-nav: #161412;
+  --sl-color-bg: #1c1a17;
+  --sl-color-bg-inline-code: #2a2622;
+  
+  /* Warm off-white text */
+  --sl-color-white: #ffffff;
+  --sl-color-text: #e8e3d9;
+  --sl-color-text-accent: #f0c39f;
+  
+  /* Borders and UI */
+  --sl-color-hairline-shade: #2d2925;
 }
 
+/* Force Light Mode to look dark to prevent flash, or just hide theme toggle */
 [data-theme='light'] {
-  --sl-color-bg-nav: #ffffff;
-  --sl-color-bg: #ffffff;
-  --sl-color-accent-low: #d4f3e6;
+  --sl-color-bg-nav: #161412;
+  --sl-color-bg: #1c1a17;
+  --sl-color-text: #e8e3d9;
+  --sl-color-hairline-shade: #2d2925;
+}
+
+/* Typography Overrides */
+h1, h2, h3, .site-title, .hero h1 {
+  font-family: 'Playfair Display', serif !important;
+  font-weight: 500 !important;
+  letter-spacing: -0.01em;
+  color: #f4f0e6 !important;
+}
+
+.hero h1 {
+  font-size: clamp(3rem, 7vw, 5rem) !important;
+  line-height: 1.05 !important;
+}
+
+/* Clean up UI elements */
+starlight-theme-select {
+  display: none !important;
+}
+
+.hero .actions a {
+  border-radius: 4px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+.card {
+  border-color: #2d2925 !important;
+  background-color: #161412 !important;
 }
